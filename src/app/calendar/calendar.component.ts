@@ -18,13 +18,13 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     const now = new Date();
-    this.currentMonth = now.getMonth();
+    this.currentMonth = now.getMonth() + 1;
     this.currentYear = now.getFullYear();
   }
 
   prevMonth() {
-    if (this.currentMonth === 0) {
-      this.currentMonth = 11;
+    if (this.currentMonth === 1) {
+      this.currentMonth = 12;
       this.currentYear--;
     } else {
       this.currentMonth--;
@@ -33,8 +33,8 @@ export class CalendarComponent implements OnInit {
   }
 
   nextMonth() {
-    if (this.currentMonth === 11) {
-      this.currentMonth = 0;
+    if (this.currentMonth === 12) {
+      this.currentMonth = 1;
       this.currentYear++;
     } else {
       this.currentMonth++;

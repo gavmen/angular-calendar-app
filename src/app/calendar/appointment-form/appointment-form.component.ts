@@ -10,8 +10,8 @@ import { CalendarService, Appointment } from '../calendar.service';
 export class AppointmentFormComponent {
   form: FormGroup;
 
-  @Input() currentMonth!: number;
-  @Input() currentYear!: number;
+  // @Input() currentMonth!: number;
+  // @Input() currentYear!: number;
   
 
   constructor(private fb: FormBuilder, private calendarService: CalendarService) {
@@ -25,14 +25,13 @@ export class AppointmentFormComponent {
   onSubmit() {
     const formValue = this.form.value;
     const selectedDate = formValue.date;
-    const appointmentDate = new Date(this.currentYear, this.currentMonth, selectedDate.getDate());
-    
+    // const month = selectedDate.getMonth();
+    // const year = selectedDate.getFullYear();
     const newAppointment: Appointment = {
       id: Date.now(),
       title: formValue.title,
-      date: appointmentDate
+      date: selectedDate
     };
-  
     this.calendarService.addAppointment(newAppointment);
     this.form.reset();
   }
