@@ -1,2 +1,8 @@
 <app-appointment-form></app-appointment-form>
 <app-calendar-grid></app-calendar-grid>
+<div class="month-navigation">
+    <button (click)="prevMonth()">Previous Month</button>
+    <span>{{ currentMonth }} {{ currentYear }}</span>
+    <button (click)="nextMonth()">Next Month</button>
+  </div>
+  

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CalendarService, Appointment } from '../calendar.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -7,24 +8,33 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   templateUrl: './calendar-grid.component.html',
   styleUrls: ['./calendar-grid.component.scss']
 })
-export class CalendarGridComponent implements OnInit {
+export class CalendarGridComponent implements OnInit, OnDestroy {
   daysInMonth: { date: Date, appointments: Appointment[] }[] = [];
   appointments: Appointment[] = [];
+  private subscription: Subscription = new Subscription();
 
   constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    this.initializeDaysInMonth();
+    this.subscription = this.calendarService.appointmentsObservable.subscribe(appointments => {
+      this.appointments = appointments;
+      this.initializeDaysInMonth();
+    });
+  }
+
+  initializeDaysInMonth(month: number = new Date().getMonth(), year: number = new Date().getFullYear()) {
+    const startOfMonth = new Date(year, month, 1);
+    const endOfMonth = new Date(year, month + 1, 0);
     
+    this.daysInMonth = [];
     for (let day = startOfMonth; day <= endOfMonth; day.setDate(day.getDate() + 1)) {
       this.daysInMonth.push({
         date: new Date(day),
         appointments: this.getAppointmentsForDate(new Date(day))
       });
     }
- }
+  }
 
   getAppointmentsForDate(date: Date): Appointment[] {
     return this.appointments.filter(app => app.date.toDateString() === date.toDateString());
@@ -41,5 +51,9 @@ export class CalendarGridComponent implements OnInit {
     const currentDate = this.daysInMonth[event.currentIndex].date;
     this.appointments[prevIndex].date = currentDate;
     this.calendarService.updateAppointments(this.appointments);
- }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

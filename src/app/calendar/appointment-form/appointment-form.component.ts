@@ -22,7 +22,7 @@ export class AppointmentFormComponent {
       const appointment: Appointment = {
         id: Date.now(),
         title: this.form.value.title,
-        date: new Date(this.form.value.date)
+        date: new Date(this.form.value.date.setHours(0, 0, 0, 0)) // Reset the time to midnight
       };
       this.calendarService.addAppointment(appointment);
       this.form.reset();
