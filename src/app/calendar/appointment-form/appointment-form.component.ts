@@ -25,8 +25,6 @@ export class AppointmentFormComponent {
   onSubmit() {
     const formValue = this.form.value;
     const selectedDate = formValue.date;
-    // const month = selectedDate.getMonth();
-    // const year = selectedDate.getFullYear();
     const newAppointment: Appointment = {
       id: Date.now(),
       title: formValue.title,
@@ -34,5 +32,5 @@ export class AppointmentFormComponent {
     };
     this.calendarService.addAppointment(newAppointment);
     this.form.reset();
-  }
+}
 }

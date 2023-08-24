@@ -18,34 +18,35 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     const now = new Date();
-    this.currentMonth = now.getMonth() + 1;
+    this.currentMonth = now.getMonth();
     this.currentYear = now.getFullYear();
   }
 
   nextMonth() {
-    if (this.currentMonth === 12) {
-      this.currentMonth = 1;
-      this.currentYear++;
+    if (this.currentMonth === 11) {
+        this.currentMonth = 0;
+        this.currentYear++;
     } else {
-      this.currentMonth++;
+        this.currentMonth++;
     }
     if (this.calendarGridComponent) {
-      this.calendarGridComponent.initializeDaysInMonth(this.currentMonth - 1, this.currentYear);
+        this.calendarGridComponent.initializeDaysInMonth(this.currentMonth, this.currentYear);
     }
-  }
+}
   
-  prevMonth() {
-    if (this.currentMonth === 1) {
-      this.currentMonth = 12;
-      this.currentYear--;
+prevMonth() {
+    if (this.currentMonth === 0) {
+        this.currentMonth = 11;
+        this.currentYear--;
     } else {
-      this.currentMonth--;
+        this.currentMonth--;
     }
     if (this.calendarGridComponent) {
-      this.calendarGridComponent.initializeDaysInMonth(this.currentMonth - 1, this.currentYear);
+        this.calendarGridComponent.initializeDaysInMonth(this.currentMonth, this.currentYear);
     }
   }
-  
+
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   updateCalendar() {
     if (this.calendarGridComponent) {

@@ -2,6 +2,6 @@
 <app-calendar-grid></app-calendar-grid>
 <div class="month-navigation">
     <button (click)="prevMonth()">Previous Month</button>
-    <span>{{ currentMonth }} {{ currentYear }}</span>
+    <span>{{ months[currentMonth] }} {{ currentYear }}</span>
     <button (click)="nextMonth()">Next Month</button>
 </div>
