@@ -31,5 +31,5 @@ export class CalendarService {
   updateAppointments(updatedAppointments: Appointment[]) {
     this.appointments = updatedAppointments;
     this.appointments$.next(this.appointments);
- }
+  }
 }

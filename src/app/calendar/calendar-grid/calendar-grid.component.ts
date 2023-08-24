@@ -38,11 +38,8 @@ export class CalendarGridComponent implements OnInit {
     const prevIndex = this.appointments.findIndex(
       app => app.id === event.item.data.id
     );
- 
     const currentDate = this.daysInMonth[event.currentIndex].date;
- 
     this.appointments[prevIndex].date = currentDate;
- 
     this.calendarService.updateAppointments(this.appointments);
  }
 }
