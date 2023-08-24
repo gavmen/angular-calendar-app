@@ -48,8 +48,8 @@ export class CalendarGridComponent implements OnInit, OnDestroy {
     const prevIndex = this.appointments.findIndex(
       app => app.id === event.item.data.id
     );
-    const currentDate = this.daysInMonth[event.currentIndex].date;
-    this.appointments[prevIndex].date = currentDate;
+    const targetDate = this.daysInMonth[event.currentIndex].date;
+    this.appointments[prevIndex].date = new Date(targetDate);
     this.calendarService.updateAppointments(this.appointments);
   }
 

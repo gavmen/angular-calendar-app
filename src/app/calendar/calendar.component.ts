@@ -22,16 +22,6 @@ export class CalendarComponent implements OnInit {
     this.currentYear = now.getFullYear();
   }
 
-  prevMonth() {
-    if (this.currentMonth === 1) {
-      this.currentMonth = 12;
-      this.currentYear--;
-    } else {
-      this.currentMonth--;
-    }
-    this.updateCalendar();
-  }
-
   nextMonth() {
     if (this.currentMonth === 12) {
       this.currentMonth = 1;
@@ -39,8 +29,23 @@ export class CalendarComponent implements OnInit {
     } else {
       this.currentMonth++;
     }
-    this.updateCalendar();
+    if (this.calendarGridComponent) {
+      this.calendarGridComponent.initializeDaysInMonth(this.currentMonth - 1, this.currentYear);
+    }
   }
+  
+  prevMonth() {
+    if (this.currentMonth === 1) {
+      this.currentMonth = 12;
+      this.currentYear--;
+    } else {
+      this.currentMonth--;
+    }
+    if (this.calendarGridComponent) {
+      this.calendarGridComponent.initializeDaysInMonth(this.currentMonth - 1, this.currentYear);
+    }
+  }
+  
 
   updateCalendar() {
     if (this.calendarGridComponent) {
