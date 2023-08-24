@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core'; // Import Input
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarService, Appointment } from '../calendar.service';
 
@@ -10,22 +10,30 @@ import { CalendarService, Appointment } from '../calendar.service';
 export class AppointmentFormComponent {
   form: FormGroup;
 
+  @Input() currentMonth!: number;
+  @Input() currentYear!: number;
+  
+
   constructor(private fb: FormBuilder, private calendarService: CalendarService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       date: ['', Validators.required]
     });
   }
+  
 
   onSubmit() {
-    if (this.form.valid) {
-      const appointment: Appointment = {
-        id: Date.now(),
-        title: this.form.value.title,
-        date: new Date(this.form.value.date.setHours(0, 0, 0, 0)) // Reset the time to midnight
-      };
-      this.calendarService.addAppointment(appointment);
-      this.form.reset();
-    }
+    const formValue = this.form.value;
+    const selectedDate = formValue.date;
+    const appointmentDate = new Date(this.currentYear, this.currentMonth, selectedDate.getDate());
+    
+    const newAppointment: Appointment = {
+      id: Date.now(),
+      title: formValue.title,
+      date: appointmentDate
+    };
+  
+    this.calendarService.addAppointment(newAppointment);
+    this.form.reset();
   }
 }
