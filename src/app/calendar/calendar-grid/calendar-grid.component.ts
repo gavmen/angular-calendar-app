@@ -44,14 +44,13 @@ export class CalendarGridComponent implements OnInit, OnDestroy {
     this.calendarService.deleteAppointment(id);
   }
 
-  drop(event: CdkDragDrop<Date[]>) {
-    const prevIndex = this.appointments.findIndex(
-      app => app.id === event.item.data.id
-    );
-    const targetDate = this.daysInMonth[event.currentIndex].date;
-    this.appointments[prevIndex].date = new Date(targetDate);
+  drop(event: CdkDragDrop<Date[]>, targetDate: Date) {
+    console.log('Drop event triggered:', event);
+    const draggedAppointment: Appointment = event.item.data;
+    draggedAppointment.date = targetDate;
     this.calendarService.updateAppointments(this.appointments);
   }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

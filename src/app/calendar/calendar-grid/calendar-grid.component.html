@@ -1,5 +1,8 @@
-<div class="calendar-grid" cdkDropList (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let dayObj of daysInMonth">
+<div class="calendar-grid">
+    <div *ngFor="let dayObj of daysInMonth" 
+     cdkDropList 
+     [cdkDropListData]="[dayObj.date]" 
+     (cdkDropListDropped)="drop($event, dayObj.date)">
       {{ dayObj.date.getDate() }}
       <div *ngFor="let appointment of dayObj.appointments" cdkDrag [cdkDragData]="appointment">
         {{ appointment.title }}
@@ -9,4 +12,3 @@
       </div>
     </div>
 </div>
-  
