@@ -1,6 +1,6 @@
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 10px;
     padding: 20px;
   }
@@ -10,7 +10,7 @@
     padding: 10px;
     border-radius: 5px;
     position: relative;
-    height: 100px;
+    // height: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,12 +18,13 @@
   
   div > div > div {
     background-color: #4c3d6d;
-    padding: 5px;
+    z-index: 2;
     border-radius: 5px;
     margin-top: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
   }
   
   button {
