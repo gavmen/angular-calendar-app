@@ -1,0 +1,12 @@
+<div class="calendar-grid" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let dayObj of daysInMonth">
+        {{ dayObj.date.getDate() }}
+        <div *ngFor="let appointment of dayObj.appointments" cdkDrag [cdkDragData]="appointment">
+            {{ appointment.title }}
+            <button mat-icon-button (click)="deleteAppointment(appointment.id)">
+            <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+ 
